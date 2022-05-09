@@ -15,18 +15,18 @@
 
     <dependencies>
         <!--mysql 驱动依赖-->
-        <!--<dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.19</version>
-        </dependency>-->
+        </dependency>
 
         <!--mybatis plus依赖-->
-        <!--<dependency>
+        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.4.2</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>com.wwh.blog</groupId>
             <artifactId>user_view</artifactId>
