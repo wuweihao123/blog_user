@@ -4,8 +4,46 @@ server:
 spring:
   application:
     name: user
-  datasource:
-    url: jdbc:mysql://localhost:3306/blog?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  shardingsphere:
+    datasource:
+      names: m-0, m-1
+      m-0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://localhost:3306/springcloud_blog_1?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password:
+      m-1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://localhost:3306/springcloud_blog_2?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password:
+
+    sharding:
+      tables:
+        blog_user:
+          actual-data-nodes: m-$->{0..1}.blog_user_$->{0..1}
+          keyGenerator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              workId: 1
+          table-strategy: #分表策略
+            inline:
+              sharding-column: id
+              algorithm-expression: blog_user_$->{id % 2}
+      default-database-strategy: #分库策略
+        inline:
+          algorithm-expression: m-$->{id % 2}
+          sharding-column: id
+    props:
+      sql:
+        show: true
+
+mybatis-plus:
+  type-aliases-package: com.wwh.blog.pojo
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

@@ -7,10 +7,8 @@ import com.wwh.blog.vo.UserVo;
 import com.wwh.springcloud.pojo.ResultMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -20,13 +18,21 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/login")
-    public ResultMessage login(@RequestBody UserVo userVo) {
+    @PostMapping("/register")
+    public ResultMessage login(@Validated  @RequestBody UserVo userVo) {
         log.info("UserController login = {}", JSON.toJSON(userVo));
-
-        User user = userVo.vo2po(userVo);
+        User user = new User();
+        user.vo2po(userVo);
         userService.addUser(user);
         return new ResultMessage();
     }
+
+    @GetMapping("/getUser")
+    public ResultMessage getUser(@RequestParam(name = "username") String username) {
+        log.info("UserController getUser = {} ", username);
+        User user = userService.getUser(username);
+        return new ResultMessage(user);
+    }
+
 
 }
