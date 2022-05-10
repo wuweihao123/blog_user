@@ -6,7 +6,6 @@ import com.wwh.blog.service.UserService;
 import com.wwh.blog.vo.UserVo;
 import com.wwh.springcloud.pojo.ResultMessage;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +13,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "user")
 public class UserController {
+    private final UserService userService;
 
-    @Autowired
-    UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+
+    }
 
     @PostMapping("/register")
     public ResultMessage login(@Validated  @RequestBody UserVo userVo) {

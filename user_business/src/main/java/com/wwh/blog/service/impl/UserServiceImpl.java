@@ -8,18 +8,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Wrapper;
-
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserMapper userMapper;
+    private final UserMapper userMapper;
+
+    public UserServiceImpl(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     @Override
     public void addUser(User user) {
-        int insert = userMapper.insert(user);
+        userMapper.insert(user);
         log.info("添加成功");
     }
 
