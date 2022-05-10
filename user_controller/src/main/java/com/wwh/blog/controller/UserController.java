@@ -33,7 +33,8 @@ public class UserController {
     public ResultMessage getUser(@RequestParam(name = "username") String username) {
         log.info("UserController getUser = {} ", username);
         User user = userService.getUser(username);
-        return new ResultMessage(user);
+        UserVo userVo = user.po2vo();
+        return new ResultMessage(userVo);
     }
 
 
