@@ -5,10 +5,13 @@ import com.wwh.blog.pojo.User;
 import com.wwh.blog.service.UserService;
 import com.wwh.blog.vo.UserVo;
 import com.wwh.springcloud.pojo.ResultMessage;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags = "用户模块")
 @Slf4j
 @RestController
 @RequestMapping(value = "user")
@@ -20,6 +23,7 @@ public class UserController {
 
     }
 
+    @ApiOperation(value = "用户注册", notes = "用户注册")
     @PostMapping("/register")
     public ResultMessage login(@Validated  @RequestBody UserVo userVo) {
         log.info("UserController login = {}", JSON.toJSON(userVo));
@@ -29,6 +33,7 @@ public class UserController {
         return new ResultMessage();
     }
 
+    @ApiOperation(value = "获取去具体某个用户", notes = "获取具体某个用户")
     @GetMapping("/getUser")
     public ResultMessage getUser(@RequestParam(name = "username") String username) {
         log.info("UserController getUser = {} ", username);
