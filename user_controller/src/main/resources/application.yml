@@ -3,22 +3,22 @@ server:
 
 spring:
   application:
-    name: user
+    name: user-service
   shardingsphere:
     datasource:
       names: m-0, m-1
       m-0:
         type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://localhost:3306/springcloud_blog_0?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: 1234
+      m-1:
+        type: com.alibaba.druid.pool.DruidDataSource
         url: jdbc:mysql://localhost:3306/springcloud_blog_1?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
         driver-class-name: com.mysql.cj.jdbc.Driver
         username: root
-        password:
-      m-1:
-        type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://localhost:3306/springcloud_blog_2?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        username: root
-        password:
+        password: 1234
 
     sharding:
       tables:
@@ -40,6 +40,13 @@ spring:
     props:
       sql:
         show: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+        namespace: public
 
 mybatis-plus:
   type-aliases-package: com.wwh.blog.pojo
