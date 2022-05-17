@@ -6,10 +6,11 @@ import com.wwh.blog.pojo.User;
 import com.wwh.blog.service.UserService;
 import com.wwh.springcloud.uitl.BaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.stereotype.Service;
 
 @Slf4j
-@Service
+@DubboService
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 
     private final UserMapper userMapper;
@@ -20,7 +21,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Override
     public void addUser(User user) {
-        this.insert(user);
+        user.setSalt("12331232131");
         userMapper.insert(user);
         log.info("添加成功");
     }

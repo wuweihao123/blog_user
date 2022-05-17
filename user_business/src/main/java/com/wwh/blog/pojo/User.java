@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +22,9 @@ import java.util.Objects;
 @TableName(value = "blog_user")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Convert<UserVo, User> {
+public class User implements Convert<UserVo, User>, Serializable {
+
+    private static final long serialVersionUID = -3986384391260906030L;
 
     @TableId(value = "id")
     private Long id;

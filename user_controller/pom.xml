@@ -16,11 +16,6 @@
         <!--引入view 和 business包-->
         <dependency>
             <groupId>com.wwh.blog</groupId>
-            <artifactId>user_view</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.wwh.blog</groupId>
             <artifactId>user_business</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
