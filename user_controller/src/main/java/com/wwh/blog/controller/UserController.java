@@ -8,6 +8,7 @@ import com.wwh.springcloud.pojo.ResultMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import ma.glasnost.orika.MapperFacade;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +18,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "user")
 public class UserController {
     private final UserService userService;
+    private final MapperFacade mapperFacade;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService,
+                          MapperFacade mapperFacade) {
         this.userService = userService;
+        this.mapperFacade = mapperFacade;
 
     }
 
@@ -27,8 +31,7 @@ public class UserController {
     @PostMapping("/register")
     public ResultMessage login(@Validated  @RequestBody UserVo userVo) {
         log.info("UserController login = {}", JSON.toJSON(userVo));
-        User user = new User();
-        user.vo2po(userVo);
+        User user = mapperFacade.map(userVo, User.class);
         userService.addUser(user);
         return new ResultMessage();
     }
