@@ -1,2 +1,16 @@
 server:
   port: 8001
+
+spring:
+  redis:
+    database: 2 # Redis 数据库索引
+    host: 10.19.133.122 #Redis 服务地址
+    port: 6379    # Redis 服务连接端口
+    password:   # Redis 服务连接密码（默认为空）
+    timeout: 2000   # 连接超时时间（毫秒）
+    jedis:
+      pool:
+        max-active: 200   # 连接池最大连接数（使用负值标识没有限制）
+        max-idle: 20      # 连接池中的最大空闲连接
+        min-idle: 0       # 连接池中的最小空闲连接
+        max-wait: -1      # 连接池最大阻塞等待时间（使用负值标识没有限制）
