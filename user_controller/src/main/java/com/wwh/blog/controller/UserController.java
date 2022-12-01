@@ -49,7 +49,7 @@ public class UserController {
 
     @ApiOperation(value = "获取去具体某个用户", notes = "获取具体某个用户")
     @GetMapping("/getUser")
-    @AccessLimit(maxCount = 3, second = 60)
+    @AccessLimit(maxCount = 10, second = 60)
     public ResultMessage getUser(@RequestParam(name = "username") String username) {
         log.info("UserController getUser = {} ", username);
         User user = userService.getUser(username);

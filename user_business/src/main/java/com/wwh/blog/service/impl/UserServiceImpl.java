@@ -9,12 +9,15 @@ import com.wwh.springcloud.exception.BusinessException;
 import com.wwh.springcloud.uitl.BaseServiceImpl;
 import com.wwh.springcloud.uitl.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * @author wuweihao5
+ */
 @Slf4j
-@DubboService
+@Service
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 
     private final UserMapper userMapper;
@@ -34,7 +37,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     public User getUser(String username) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
-        return userMapper.selectOne(queryWrapper);
+        //return userMapper.selectOne(queryWrapper);
+        return userMapper.selectByName(username);
     }
 
     @Override
